@@ -1,6 +1,6 @@
 import { id } from "effect/Fiber";
 import { Inngest } from "inngest";
-import prisma from "../configs/prisma";
+import prisma from "../configs/prisma.js";
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "project-management" });
@@ -14,7 +14,7 @@ const syncUserCreation = inngest.createFunction(
         await prisma.user.create({
             data: {
                 id: data.id,
-                email: data?.email_addresses[0]?.email_addres,
+                email: data?.email_addresses[0]?.email_address,
                 name: data?.first_name + " " + data?.last_name,
                 image: data?.image_url,
             }
@@ -47,7 +47,7 @@ const syncUserUpdation = inngest.createFunction(
                 id: data.id,
             },
             data: {
-                email: data?.email_addresses[0]?.email_addres,
+                email: data?.email_addresses[0]?.email_address,
                 name: data?.first_name + " " + data?.last_name,
                 image: data?.image_url,
             }
